@@ -1,0 +1,182 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api",
+    "paths": {
+        "/route": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Route successfully retrieved.",
+                        "schema": {
+                            "$ref": "#/definitions/RoutingResponse"
+                        }
+                    }
+                },
+                "operationId": "get_plaza_routing",
+                "parameters": [
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Start locaton"
+                    },
+                    {
+                        "name": "destination",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Destination address"
+                    },
+                    {
+                        "name": "departure",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Departure"
+                    }
+                ],
+                "tags": [
+                    "route"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "PlazaRouting API",
+        "version": "1.0",
+        "description": "PlazaRouting API"
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "default",
+            "description": "Default namespace"
+        },
+        {
+            "name": "route",
+            "description": "Routing operations"
+        }
+    ],
+    "definitions": {
+        "RoutingResponse": {
+            "properties": {
+                "start_walking_route": {
+                    "$ref": "#/definitions/WalkingRouteResponse"
+                },
+                "public_transport_route": {
+                    "$ref": "#/definitions/PublicTransportRouteResponse"
+                },
+                "end_walking_route": {
+                    "$ref": "#/definitions/WalkingRouteResponse"
+                },
+                "accumulated_duration": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "WalkingRouteResponse": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "default": "walking"
+                },
+                "duration": {
+                    "type": "number"
+                },
+                "ascend": {
+                    "type": "number"
+                },
+                "descend": {
+                    "type": "number"
+                },
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "PublicTransportRouteResponse": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "default": "public_transport"
+                },
+                "duration": {
+                    "type": "number"
+                },
+                "number_of_legs": {
+                    "type": "integer"
+                },
+                "path": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PublicTransportPathResponse"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "PublicTransportPathResponse": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "line_type": {
+                    "type": "string"
+                },
+                "line": {
+                    "type": "string"
+                },
+                "destination": {
+                    "type": "string"
+                },
+                "terminal": {
+                    "type": "string"
+                },
+                "departure": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "arrival": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "start_position": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "exit_position": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    },
+    "host": "localhost:5000"
+}

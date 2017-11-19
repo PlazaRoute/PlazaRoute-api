@@ -5,7 +5,7 @@
     "name": "PlazaRouting",
     "repo": "PlazaRoute/PlazaRoute-api",
     "splitSpec": false,
-    "samples": true,
+    "samples": false,
     "installSwaggerUI": true
   }
 }

@@ -90,12 +90,6 @@
                 "duration": {
                     "type": "number"
                 },
-                "ascend": {
-                    "type": "number"
-                },
-                "descend": {
-                    "type": "number"
-                },
                 "path": {
                     "type": "array",
                     "items": {

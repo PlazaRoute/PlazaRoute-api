@@ -69,8 +69,8 @@
                 "start_walking_route": {
                     "$ref": "#/definitions/WalkingRouteResponse"
                 },
-                "public_transport_route": {
-                    "$ref": "#/definitions/PublicTransportRouteResponse"
+                "public_transport_connection": {
+                    "$ref": "#/definitions/PublicTransportConnectionResponse"
                 },
                 "end_walking_route": {
                     "$ref": "#/definitions/WalkingRouteResponse"
@@ -102,7 +102,7 @@
             },
             "type": "object"
         },
-        "PublicTransportRouteResponse": {
+        "PublicTransportConnectionResponse": {
             "properties": {
                 "type": {
                     "type": "string",
@@ -158,6 +158,15 @@
                     "type": "array",
                     "items": {
                         "type": "number"
+                    }
+                },
+                "stopovers": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
                     }
                 }
             },

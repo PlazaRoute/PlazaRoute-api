@@ -265,8 +265,12 @@
         "MaskError": {
             "description": "When any error occurs on mask"
         },
-        "ValidationError": {},
-        "ServiceError": {}
+        "ValidationError": {
+            "description": "When the user passed an invalid parameter the API"
+        },
+        "ServiceError": {
+            "description": "When a third party system is temporarily unavailable"
+        }
     },
     "host": "localhost:5000"
 }

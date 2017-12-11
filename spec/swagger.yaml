@@ -5,6 +5,15 @@
         "/route": {
             "get": {
                 "responses": {
+                    "500": {
+                        "description": "plaza route is temporarily unavailable"
+                    },
+                    "503": {
+                        "description": "third party system is temporarily unavailable"
+                    },
+                    "400": {
+                        "description": "invalid parameters"
+                    },
                     "200": {
                         "description": "Route successfully retrieved.",
                         "schema": {
@@ -19,21 +28,26 @@
                         "in": "query",
                         "type": "string",
                         "required": true,
-                        "description": "Start locaton"
+                        "description": "Start location {longitude, latitude} or address"
                     },
                     {
                         "name": "destination",
                         "in": "query",
                         "type": "string",
                         "required": true,
-                        "description": "Destination address"
+                        "description": "Destination location {longitude, latitude} or address"
                     },
                     {
                         "name": "departure",
                         "in": "query",
                         "type": "string",
-                        "required": true,
-                        "description": "Departure"
+                        "description": "Departure {HH:mm}"
+                    },
+                    {
+                        "name": "precise_public_transport_stops",
+                        "in": "query",
+                        "type": "boolean",
+                        "description": "Use precise locations for public transport stops (slower)"
                     }
                 ],
                 "tags": [
@@ -65,14 +79,22 @@
     ],
     "definitions": {
         "RoutingResponse": {
+            "required": [
+                "accumulated_duration",
+                "end_walking_route",
+                "public_transport_connection",
+                "start_walking_route"
+            ],
             "properties": {
                 "start_walking_route": {
                     "$ref": "#/definitions/WalkingRouteResponse"
                 },
                 "public_transport_connection": {
+                    "default": [],
                     "$ref": "#/definitions/PublicTransportConnectionResponse"
                 },
                 "end_walking_route": {
+                    "default": [],
                     "$ref": "#/definitions/WalkingRouteResponse"
                 },
                 "accumulated_duration": {
@@ -82,6 +104,11 @@
             "type": "object"
         },
         "WalkingRouteResponse": {
+            "required": [
+                "duration",
+                "path",
+                "type"
+            ],
             "properties": {
                 "type": {
                     "type": "string",
@@ -92,6 +119,16 @@
                 },
                 "path": {
                     "type": "array",
+                    "example": [
+                        [
+                            8.81716,
+                            47.22372
+                        ],
+                        [
+                            8.81814,
+                            47.22398
+                        ]
+                    ],
                     "items": {
                         "type": "array",
                         "items": {
@@ -103,6 +140,12 @@
             "type": "object"
         },
         "PublicTransportConnectionResponse": {
+            "required": [
+                "duration",
+                "number_of_legs",
+                "path",
+                "type"
+            ],
             "properties": {
                 "type": {
                     "type": "string",
@@ -124,44 +167,86 @@
             "type": "object"
         },
         "PublicTransportPathResponse": {
+            "required": [
+                "arrival",
+                "departure",
+                "destination",
+                "exit_position",
+                "line",
+                "line_type",
+                "start",
+                "start_position",
+                "stopovers",
+                "terminal"
+            ],
             "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "line_type": {
-                    "type": "string"
-                },
-                "line": {
-                    "type": "string"
+                "start": {
+                    "type": "string",
+                    "example": "Z\u00fcrich Oerlikon"
                 },
                 "destination": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Z\u00fcrich Hardbr\u00fcck"
+                },
+                "line_type": {
+                    "type": "string",
+                    "example": "strain"
+                },
+                "line": {
+                    "type": "string",
+                    "example": "S6"
+                },
+                "track": {
+                    "type": "string",
+                    "example": "7"
                 },
                 "terminal": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Z\u00fcrich Stadelhofen"
                 },
                 "departure": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2017-11-18 14:51:00"
                 },
                 "arrival": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2017-11-18 14:54:00"
                 },
                 "start_position": {
                     "type": "array",
+                    "example": [
+                        8.81716,
+                        47.22372
+                    ],
                     "items": {
                         "type": "number"
                     }
                 },
                 "exit_position": {
                     "type": "array",
+                    "example": [
+                        8.81716,
+                        47.22372
+                    ],
                     "items": {
                         "type": "number"
                     }
                 },
                 "stopovers": {
                     "type": "array",
+                    "default": [],
+                    "example": [
+                        [
+                            8.81716,
+                            47.22372
+                        ],
+                        [
+                            8.81814,
+                            47.22398
+                        ]
+                    ],
                     "items": {
                         "type": "array",
                         "items": {
@@ -179,7 +264,9 @@
         },
         "MaskError": {
             "description": "When any error occurs on mask"
-        }
+        },
+        "ValidationError": {},
+        "ServiceError": {}
     },
     "host": "localhost:5000"
 }

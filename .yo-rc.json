@@ -3,7 +3,7 @@
     "importExistingSpec": true,
     "importedSpec": "spec/swagger.json",
     "name": "PlazaRouting",
-    "repo": "PlazaRoute/PlazaRoute-api",
+    "repo": "PlazaRoute/api",
     "splitSpec": false,
     "samples": false,
     "installSwaggerUI": true

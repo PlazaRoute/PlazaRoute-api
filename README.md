@@ -1,14 +1,14 @@
 # PlazaRouting OpenAPI Specification
-[![Build Status](https://travis-ci.org/PlazaRoute/PlazaRoute-api.svg?branch=master)](https://travis-ci.org/PlazaRoute/PlazaRoute-api)
+[![Build Status](https://travis-ci.org/PlazaRoute/api.svg?branch=master)](https://travis-ci.org/PlazaRoute/api)
 
 ## Links
 
-- Documentation(ReDoc): https://plazaroute.github.io/PlazaRoute-api/
-- SwaggerUI: https://plazaroute.github.io/PlazaRoute-api/swagger-ui/
+- Documentation(ReDoc): https://plazaroute.github.io/api/
+- SwaggerUI: https://plazaroute.github.io/api/swagger-ui/
 - Look full spec:
-    + JSON https://plazaroute.github.io/PlazaRoute-api/swagger.json
-    + YAML https://plazaroute.github.io/PlazaRoute-api/swagger.yaml
-- Preview spec version for branch `[branch]`: https://plazaroute.github.io/PlazaRoute-api/preview/[branch]
+    + JSON https://plazaroute.github.io/api/swagger.json
+    + YAML https://plazaroute.github.io/api/swagger.yaml
+- Preview spec version for branch `[branch]`: https://plazaroute.github.io/api/preview/[branch]
 
 **Warning:** All above links are updated only after Travis CI finishes deployment
 

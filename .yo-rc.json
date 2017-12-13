@@ -1,9 +1,10 @@
 {
   "generator-openapi-repo": {
-    "importExistingSpec": true,
-    "importedSpec": "spec/swagger.json",
     "name": "PlazaRouting",
     "repo": "PlazaRoute/api",
+    "version": "1.0",
+    "travis": true,
+    "redocVersion": "latest",
     "splitSpec": false,
     "samples": false,
     "installSwaggerUI": true

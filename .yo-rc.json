@@ -7,6 +7,8 @@
     "redocVersion": "latest",
     "splitSpec": false,
     "samples": false,
-    "installSwaggerUI": true
+    "installSwaggerUI": true,
+    "importExistingSpec": true,
+    "importedSpec": "spec/swagger.json"
   }
 }

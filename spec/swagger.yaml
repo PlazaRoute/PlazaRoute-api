@@ -90,11 +90,9 @@
                     "$ref": "#/definitions/WalkingRouteResponse"
                 },
                 "public_transport_connection": {
-                    "default": [],
                     "$ref": "#/definitions/PublicTransportConnectionResponse"
                 },
                 "end_walking_route": {
-                    "default": [],
                     "$ref": "#/definitions/WalkingRouteResponse"
                 },
                 "accumulated_duration": {
@@ -272,5 +270,6 @@
             "description": "When a third party system is temporarily unavailable"
         }
     },
-    "host": "localhost:5000"
+    "host": "plazaroute.infs.ch",
+    "schemes": ["https"]
 }

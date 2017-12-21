@@ -270,6 +270,5 @@
             "description": "When a third party system is temporarily unavailable"
         }
     },
-    "host": "plazaroute.infs.ch",
-    "schemes": ["https"]
+    "host": "localhost:5000"
 }

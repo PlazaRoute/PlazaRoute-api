@@ -25,6 +25,11 @@
 
 1. start local flask server and go to http://localhost:5000/api/swagger.json
 2. save swagger.json to `spec/`
-3. delete `spec/swagger.yaml`
-4. `yo openapi-repo` and make sure not to override the README
-5. push changes
+3. replace `"host": "localhost:5000"` with
+```,
+"host": "localhost:5000",
+"schemes": ["http"]
+```
+4. delete `spec/swagger.yaml`
+5. `yo openapi-repo` and make sure not to override the README
+6. push changes

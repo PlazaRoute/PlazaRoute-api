@@ -270,5 +270,6 @@
             "description": "When a third party system is temporarily unavailable"
         }
     },
-    "host": "localhost:5000"
+    "host": "localhost:5000",
+    "schemes": ["http"]
 }

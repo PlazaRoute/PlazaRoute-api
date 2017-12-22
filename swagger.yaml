@@ -1,0 +1,186 @@
+swagger: '2.0'
+basePath: /api
+paths:
+  /route:
+    get:
+      responses:
+        '200':
+          description: Route successfully retrieved.
+          schema:
+            $ref: '#/definitions/RoutingResponse'
+        '400':
+          description: invalid parameters
+        '500':
+          description: plaza route is temporarily unavailable
+        '503':
+          description: third party system is temporarily unavailable
+      operationId: get_plaza_routing
+      parameters:
+        - name: start
+          in: query
+          type: string
+          required: true
+          description: 'Start location {longitude, latitude} or address'
+        - name: destination
+          in: query
+          type: string
+          required: true
+          description: 'Destination location {longitude, latitude} or address'
+        - name: departure
+          in: query
+          type: string
+          description: 'Departure {HH:mm}'
+        - name: precise_public_transport_stops
+          in: query
+          type: boolean
+          description: Use precise locations for public transport stops (slower)
+      tags:
+        - route
+info:
+  title: PlazaRouting API
+  version: '1.0'
+  description: PlazaRouting API
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+  - name: default
+    description: Default namespace
+  - name: route
+    description: Routing operations
+definitions:
+  RoutingResponse:
+    required:
+      - accumulated_duration
+      - end_walking_route
+      - public_transport_connection
+      - start_walking_route
+    properties:
+      start_walking_route:
+        $ref: '#/definitions/WalkingRouteResponse'
+      public_transport_connection:
+        $ref: '#/definitions/PublicTransportConnectionResponse'
+      end_walking_route:
+        $ref: '#/definitions/WalkingRouteResponse'
+      accumulated_duration:
+        type: number
+    type: object
+  WalkingRouteResponse:
+    required:
+      - duration
+      - path
+      - type
+    properties:
+      type:
+        type: string
+        default: walking
+      duration:
+        type: number
+      path:
+        type: array
+        example:
+          - - 8.81716
+            - 47.22372
+          - - 8.81814
+            - 47.22398
+        items:
+          type: array
+          items:
+            type: number
+    type: object
+  PublicTransportConnectionResponse:
+    required:
+      - duration
+      - number_of_legs
+      - path
+      - type
+    properties:
+      type:
+        type: string
+        default: public_transport
+      duration:
+        type: number
+      number_of_legs:
+        type: integer
+      path:
+        type: array
+        items:
+          $ref: '#/definitions/PublicTransportPathResponse'
+    type: object
+  PublicTransportPathResponse:
+    required:
+      - arrival
+      - departure
+      - destination
+      - exit_position
+      - line
+      - line_type
+      - start
+      - start_position
+      - stopovers
+      - terminal
+    properties:
+      start:
+        type: string
+        example: Zürich Oerlikon
+      destination:
+        type: string
+        example: Zürich Hardbrück
+      line_type:
+        type: string
+        example: strain
+      line:
+        type: string
+        example: S6
+      track:
+        type: string
+        example: '7'
+      terminal:
+        type: string
+        example: Zürich Stadelhofen
+      departure:
+        type: string
+        format: date-time
+        example: '2017-11-18 14:51:00'
+      arrival:
+        type: string
+        format: date-time
+        example: '2017-11-18 14:54:00'
+      start_position:
+        type: array
+        example:
+          - 8.81716
+          - 47.22372
+        items:
+          type: number
+      exit_position:
+        type: array
+        example:
+          - 8.81716
+          - 47.22372
+        items:
+          type: number
+      stopovers:
+        type: array
+        default: []
+        example:
+          - - 8.81716
+            - 47.22372
+          - - 8.81814
+            - 47.22398
+        items:
+          type: array
+          items:
+            type: number
+    type: object
+responses:
+  ParseError:
+    description: When a mask can't be parsed
+  MaskError:
+    description: When any error occurs on mask
+  ValidationError:
+    description: When the user passed an invalid parameter the API
+  ServiceError:
+    description: When a third party system is temporarily unavailable
+host: 'localhost:5000'
